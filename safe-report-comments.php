@@ -314,7 +314,7 @@ if ( !class_exists( "Safe_Report_Comments" ) ) {
 			update_comment_meta( $comment_id, $this->_plugin_prefix . '_reported', $current_reports );
 			
 		/// CF /// Added by Crowd Favorite to enable reporting any time a comment is reported.
-			do_action( 'safe_report_comments_comment_reported', $comment_id );
+			do_action( 'safe_report_comments_comment_reported', $comment_id, $current_reports );
 		/// END CF ///
 
 			// we will not flag a comment twice. the moderator is the boss here.

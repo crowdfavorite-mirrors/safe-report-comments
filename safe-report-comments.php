@@ -3,9 +3,8 @@
 Plugin Name: Safe Report Comments
 Plugin Script: safe-report-comments.php
 Plugin URI: http://wordpress.org/extend/plugins/safe-report-comments/
-Description: This script gives visitors the possibility to flag/report a comment as inapproriate. 
-After reaching a threshold the comment is moved to moderation. If a comment is approved once by a moderator future reports will be ignored.
-Version: 0.3.2
+Description: <strong>MODIFIED BY CF TO ADD EXTRA ACTIONS. See source before updating.</strong> This script gives visitors the possibility to flag/report a comment as inapproriate. After reaching a threshold the comment is moved to moderation. If a comment is approved once by a moderator future reports will be ignored.
+Version: 0.3.2CF
 Author: Thorsten Ott, Daniel Bachhuber, Automattic
 Author URI: http://automattic.com
 */
@@ -314,7 +313,10 @@ if ( !class_exists( "Safe_Report_Comments" ) ) {
 			$current_reports++;
 			update_comment_meta( $comment_id, $this->_plugin_prefix . '_reported', $current_reports );
 			
-			
+		/// CF /// Added by Crowd Favorite to enable reporting any time a comment is reported.
+			do_action( 'safe_report_comments_comment_reported', $comment_id );
+		/// END CF ///
+
 			// we will not flag a comment twice. the moderator is the boss here.
 			$already_reported = get_comment_meta( $comment_id, $this->_plugin_prefix . '_reported', true );
 			$already_moderated = get_comment_meta( $comment_id, $this->_plugin_prefix . '_moderated', true );

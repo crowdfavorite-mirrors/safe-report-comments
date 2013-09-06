@@ -415,9 +415,10 @@ if ( !class_exists( "Safe_Report_Comments" ) ) {
 		 * with $safe_report_comments = new Safe_Report_Comments( $auto_init = false );
 		 */
 		public function add_flagging_link( $comment_reply_link ) {
-			if ( !preg_match_all( '#^(.*)(<a.+class=["|\']comment-(reply|login)-link["|\'][^>]+>)(.+)(</a>)(.*)$#msiU', $comment_reply_link, $matches ) ) 
-				return '<!-- safe-comments add_flagging_link not matching -->' . $comment_reply_link;
-		
+			if ( !preg_match_all( '#^(.*)(<a.+class=["|\']comment-(reply|login)-link["|\'][^>]+>)(.+)(</a>)(.*)$#msiU', $comment_reply_link, $matches ) ) {
+				return apply_filters( 'safe_report_comments_comment_reply_link', '<!-- safe-comments add_flagging_link not matching -->' . $comment_reply_link );
+			}
+			
 			$comment_reply_link =  $matches[1][0] . $matches[2][0] . $matches[4][0] . $matches[5][0] . '<span class="safe-comments-report-link">' . $this->get_flagging_link() . '</span>' . $matches[6][0];
 			return apply_filters( 'safe_report_comments_comment_reply_link', $comment_reply_link );
 		}
